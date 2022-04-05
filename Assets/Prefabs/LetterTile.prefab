@@ -94,7 +94,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: -10
+  encryptionSpeed: 0.5
   TMP_character: {fileID: 6436681826549976649}
+  holdingCharacter: 90
 --- !u!1 &6436681826537461390
 GameObject:
   m_ObjectHideFlags: 0
