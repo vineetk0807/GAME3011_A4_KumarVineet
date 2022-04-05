@@ -305,11 +305,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 323523749}
+  - component: {fileID: 323523753}
   - component: {fileID: 323523750}
   - component: {fileID: 323523751}
+  - component: {fileID: 323523752}
   m_Layer: 0
   m_Name: CursorBox
-  m_TagString: Untagged
+  m_TagString: Cursor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -322,7 +324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323523748}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0353, y: 0, z: 0}
+  m_LocalPosition: {x: -0.035299998, y: 0, z: 0}
   m_LocalScale: {x: 0.07692307, y: 1.25, z: 1}
   m_Children: []
   m_Father: {fileID: 1143749796}
@@ -367,7 +369,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4bb3290e855345f48a14c7923f1d95f0, type: 3}
   m_Color: {r: 0.5896226, g: 0.9778833, b: 1, a: 0.39215687}
   m_FlipX: 0
@@ -405,6 +407,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
+--- !u!114 &323523752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323523748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701d89afa3884c44f9768a54ca4f1cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Character: 0
+--- !u!95 &323523753
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323523748}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bfacc5ee4d6fa734ea6ea65c0093fce8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +773,7 @@ GameObject:
   - component: {fileID: 1143749798}
   - component: {fileID: 1143749799}
   m_Layer: 0
-  m_Name: LockPoint
+  m_Name: ConsolePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1072,6 +1106,7 @@ GameObject:
   - component: {fileID: 1774776824}
   - component: {fileID: 1774776826}
   - component: {fileID: 1774776825}
+  - component: {fileID: 1774776827}
   m_Layer: 0
   m_Name: Deathplane
   m_TagString: Deathplane
@@ -1170,6 +1205,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1774776827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774776823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80294625bbd84eb4c80b3d699df7655f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1830958225
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,6 +55,11 @@ public class CursorBox : MonoBehaviour
         {
             MoveCursor(-1);
         }
+
+        //if (cursorBox.GetComponent<CursorBehaviour>().Character != '\0' && Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    Debug.Log(cursorBox.GetComponent<CursorBehaviour>().Character);
+        //}
     }
 
     /// <summary>
@@ -79,6 +84,10 @@ public class CursorBox : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Moving Cursor handles the cursor box movement
+    /// </summary>
+    /// <param name="direction"></param>
     private void MoveCursor(int direction)
     {
         if (direction > 0)

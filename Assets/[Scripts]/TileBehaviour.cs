@@ -85,18 +85,29 @@ public class TileBehaviour : MonoBehaviour
         }
     }
 
-
     /// <summary>
-    /// Trigger
+    /// Using stay to get better way to detect collision
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        // If colliding with base of monitor, destroy
-        if (other.gameObject.CompareTag("Deathplane"))
+        if (other.gameObject.CompareTag("Cursor"))
         {
-            Destroy(this.gameObject);
+            CursorBehaviour cursor = other.gameObject.GetComponent<CursorBehaviour>();
+            cursor.Character = holdingCharacter;
         }
     }
 
+    /// <summary>
+    /// If cursor is not there, make the character null
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Cursor"))
+        {
+            CursorBehaviour cursor = other.gameObject.GetComponent<CursorBehaviour>();
+            cursor.Character = '\0';
+        }
+    }
 }

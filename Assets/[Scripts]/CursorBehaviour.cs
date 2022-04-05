@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CursorBehaviour : MonoBehaviour
 {
+    public char Character;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,24 +16,12 @@ public class CursorBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    /// <summary>
-    /// Trigger detect - enter
-    /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        
-    }
-
-    /// <summary>
-    /// Trigger detect - exit
-    /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        
+        if (Character != '\0')
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                Debug.Log(Character);
+            }
+        }
     }
 }
