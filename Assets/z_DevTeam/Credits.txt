@@ -2,3 +2,9 @@
 Name: Computer Screen
 Author: FreeSVG
 Link: https://freesvg.org/computer-monitor-symbol-vector-illustration
+
+
+### FONTS ###
+Name: Fixedsys Excelsior 3.01 Regular
+Author: Fontsgeek
+Link: https://fontsgeek.com/fonts/fixedsys-excelsior-301-regular

@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class HackingSystem : MonoBehaviour
 {
@@ -19,6 +22,10 @@ public class HackingSystem : MonoBehaviour
     public float spawnTimeCounter = 0f;
 
     public bool isPlaying = false;
+
+    [Header("Password and Hint")]
+    public TextMeshProUGUI TMP_Password;
+    public TextMeshProUGUI TMP_PasswordHint;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +46,12 @@ public class HackingSystem : MonoBehaviour
                 SpawnTiles();
             }
         }
+
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadPassword();
+        }
     }
 
 
@@ -55,5 +68,64 @@ public class HackingSystem : MonoBehaviour
             tile.movementSpeed = movementSpeed;
             
         }
+    }
+
+
+
+    /// <summary>
+    /// Loads password onto the screen
+    /// </summary>
+    public void LoadPassword()
+    {
+        // generate password using game manager
+        string generatedPassword = GameManager.GetInstance().GeneratePassword();
+
+        // Encrypt the password
+        TMP_Password.text = EncryptPassword(generatedPassword);
+
+        // Load the password hint
+        TMP_PasswordHint.text = PasswordManager.GetInstance().PasswordWithHint[GameManager.GetInstance().currentPassword];
+    }
+
+
+    /// <summary>
+    /// Encrypt password
+    /// </summary>
+    /// <param name="password"></param>
+    /// <returns></returns>
+    public string EncryptPassword(string password)
+    {
+        char[] generatedPasswordArray = password.ToCharArray();
+
+        // based on difficulty
+        int numberOfCharactersEncrypted = 3 ;
+
+        List<int> indicesForEncrypting = new List<int>();
+
+        // While count is less than the difficulty based number
+        while (indicesForEncrypting.Count < 3)
+        {
+            int index = Random.Range(0, password.Length - 1);
+            if (!indicesForEncrypting.Contains(index))
+            {
+                indicesForEncrypting.Add(index);
+            }
+        }
+
+        // Check for casewise substitution , ^ for uppercase, * for lowercase
+        foreach (var index in indicesForEncrypting)
+        {
+            // Upper case
+            if (generatedPasswordArray[index] >= 65 && generatedPasswordArray[index] <= 90)
+            {
+                generatedPasswordArray[index] = '^';
+            }
+            else
+            {
+                generatedPasswordArray[index] = '*';
+            }
+        }
+
+        return generatedPasswordArray.ArrayToString();
     }
 }
