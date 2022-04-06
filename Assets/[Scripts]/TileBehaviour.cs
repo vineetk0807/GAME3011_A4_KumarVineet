@@ -28,7 +28,10 @@ public class TileBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(0f,movementSpeed * Time.deltaTime,0f);
+        if (GameManager.GetInstance().isPlaying)
+        {
+            transform.position += new Vector3(0f, movementSpeed * Time.deltaTime, 0f);
+        }
     }
 
 
@@ -44,6 +47,11 @@ public class TileBehaviour : MonoBehaviour
             yield return new WaitForSeconds(encryptionSpeed);
             TMP_character.text = holdingCharacter.ToString();
             yield return new WaitForSeconds(encryptionSpeed);
+
+            if (!GameManager.GetInstance().isPlaying)
+            {
+                break;
+            }
         }
     }
 

@@ -21,8 +21,6 @@ public class HackingSystem : MonoBehaviour
     public float spawnDelay = 2f;
     public float spawnTimeCounter = 0f;
 
-    public bool isPlaying = false;
-
     [Header("Password and Hint")]
     public TextMeshProUGUI TMP_Password;
     public TextMeshProUGUI TMP_PasswordHint;
@@ -30,13 +28,13 @@ public class HackingSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        LoadPassword();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isPlaying)
+        if (GameManager.GetInstance().isPlaying)
         {
             spawnTimeCounter += Time.deltaTime;
 

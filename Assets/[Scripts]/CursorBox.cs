@@ -38,28 +38,26 @@ public class CursorBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(UpKeyCode1) || Input.GetKeyDown(UpKeyCode2))
+        if (GameManager.GetInstance().isPlaying)
         {
-            MoveLockPoint(1);
-        }
-        else if (Input.GetKeyDown(DownKeyCode1) || Input.GetKeyDown(DownKeyCode2))
-        {
-            MoveLockPoint(-1);
-        }
+            if (Input.GetKeyDown(UpKeyCode1) || Input.GetKeyDown(UpKeyCode2))
+            {
+                MoveLockPoint(1);
+            }
+            else if (Input.GetKeyDown(DownKeyCode1) || Input.GetKeyDown(DownKeyCode2))
+            {
+                MoveLockPoint(-1);
+            }
 
-        if (Input.GetKeyDown(RightKeyCode1) || Input.GetKeyDown(RightKeyCode2))
-        {
-            MoveCursor(1);
+            if (Input.GetKeyDown(RightKeyCode1) || Input.GetKeyDown(RightKeyCode2))
+            {
+                MoveCursor(1);
+            }
+            else if (Input.GetKeyDown(LeftKeyCode1) || Input.GetKeyDown(LeftKeyCode2))
+            {
+                MoveCursor(-1);
+            }
         }
-        else if (Input.GetKeyDown(LeftKeyCode1) || Input.GetKeyDown(LeftKeyCode2))
-        {
-            MoveCursor(-1);
-        }
-
-        //if (cursorBox.GetComponent<CursorBehaviour>().Character != '\0' && Input.GetKeyDown(KeyCode.Return))
-        //{
-        //    Debug.Log(cursorBox.GetComponent<CursorBehaviour>().Character);
-        //}
     }
 
     /// <summary>
