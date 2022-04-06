@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 
@@ -25,6 +26,18 @@ public class CursorBehaviour : MonoBehaviour
             {
                 password += Character;
                 TMP_PasswordInput.text = password;
+
+                if (password.Length % 3 == 0)
+                {
+                    if (CheckPassword())
+                    {
+                        Debug.Log("On the right track");
+                    }
+                    else
+                    {
+                        Debug.Log("Nope");
+                    }
+                }
             }
         }
     }
@@ -55,4 +68,31 @@ public class CursorBehaviour : MonoBehaviour
     {
         GameManager.GetInstance().CheckPassword(password);
     }
+
+
+    /// <summary>
+    /// Checks password when it progresses
+    /// </summary>
+    /// <returns></returns>
+    public bool CheckPassword()
+    {
+        bool check = true;
+
+        char[] passChar = password.ToCharArray();
+        char[] passCurrentChar = GameManager.GetInstance().currentPassword.ToCharArray();
+
+
+        for (int i = 0; i < passChar.Length; i++)
+        {
+            check = passCurrentChar[i].Equals(passChar[i]);
+
+            if (!check)
+            {
+                break;
+            }
+        }
+
+        return check;
+    }
+
 }
