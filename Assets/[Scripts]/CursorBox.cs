@@ -9,6 +9,9 @@ public class CursorBox : MonoBehaviour
     public GameObject cursorBox;
 
     [Header("Limit")]
+    public Vector3 startPosition;
+
+    [Header("Limit")]
     public Vector2 verticalLimit;
     public Vector2 horizontalLimit;
 
@@ -32,7 +35,7 @@ public class CursorBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.position = startPosition;
     }
 
     // Update is called once per frame

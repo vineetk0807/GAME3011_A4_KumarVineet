@@ -24,7 +24,7 @@ public class CursorBehaviour : MonoBehaviour
             "Come on! Don't give up now. Focus!", 
             "Nearly Done! GO!"};
 
-    private string incorrectText = "Something seems off between the last 2 inputs. Backspace and try again.";
+    private string incorrectText = "Something seems off. Backspace and try again with that one.";
 
     private IEnumerator narrationCoroutine;
 
@@ -65,7 +65,28 @@ public class CursorBehaviour : MonoBehaviour
                     return;
                 }
 
-                if (password.Length % 2 == 0)
+                // If password length is same as current password
+                if (password.Length == GameManager.GetInstance().currentPassword.Length)
+                {
+                    if (!isNarrationOn)
+                    {
+                        isNarrationOn = true;
+                        narrationCoroutine = AnimateTextCoroutine("Press Send, if you believe.");
+                        StartCoroutine(narrationCoroutine);
+                    }
+                    else
+                    {
+                        isNarrationOn = true;
+                        StopCoroutine(narrationCoroutine);
+                        narrationCoroutine = AnimateTextCoroutine("Press Send, if you believe.");
+                        StartCoroutine(narrationCoroutine);
+                    }
+
+                    return;
+                }
+
+                // If Player is still progressing
+                if (password.Length % 2 == 0 && password.Length < GameManager.GetInstance().currentPassword.Length)
                 {
                     if (CheckPassword())
                     {
@@ -86,23 +107,32 @@ public class CursorBehaviour : MonoBehaviour
 
                         Debug.Log("On the right track");
                     }
+                }
+
+                if(!CheckPassword())
+                {
+                    if (!isNarrationOn)
+                    {
+                        isNarrationOn = true;
+                        narrationCoroutine = AnimateTextCoroutine(incorrectText);
+                        StartCoroutine(narrationCoroutine);
+                    }
                     else
                     {
-                        if (!isNarrationOn)
-                        {
-                            isNarrationOn = true;
-                            StartCoroutine(AnimateTextCoroutine(incorrectText));
-                        }
-                        else
-                        {
-                            isNarrationOn = true;
-                            StopCoroutine(narrationCoroutine);
-                            StartCoroutine(AnimateTextCoroutine(incorrectText));
-                        }
-                        Debug.Log("Nope");
+                        isNarrationOn = true;
+                        StopCoroutine(narrationCoroutine);
+                        narrationCoroutine = AnimateTextCoroutine(incorrectText);
+                        StartCoroutine(narrationCoroutine);
                     }
+                    Debug.Log("Nope");
                 }
             }
+        }
+
+        // Backspace key
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            BackspaceFunction();
         }
     }
 
@@ -138,7 +168,10 @@ public class CursorBehaviour : MonoBehaviour
     /// </summary>
     public void SendFunction()
     {
-        GameManager.GetInstance().CheckPassword(password, this);
+        if (GameManager.GetInstance().isPlaying)
+        {
+            GameManager.GetInstance().CheckPassword(password, this);
+        }
     }
 
 
@@ -187,6 +220,10 @@ public class CursorBehaviour : MonoBehaviour
         isNarrationOn = false;
     }
 
+    /// <summary>
+    /// Narrate text public reference function
+    /// </summary>
+    /// <param name="message"></param>
     public void NarrateText(string message)
     {
         if (!isNarrationOn)
