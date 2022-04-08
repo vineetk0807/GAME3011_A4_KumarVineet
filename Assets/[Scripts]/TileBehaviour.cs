@@ -9,10 +9,7 @@ public class TileBehaviour : MonoBehaviour
 {
     // Tile movement speed
     public float movementSpeed = -10f;
-
-    // Encryption/Decryption speed
-    public float encryptionSpeed = 1f;
-
+    
     // Text of the tile
     public TextMeshProUGUI TMP_character;
     public char holdingCharacter = 'Z';
@@ -44,9 +41,9 @@ public class TileBehaviour : MonoBehaviour
         while (this.gameObject)
         {
             TMP_character.text = GenerateRandomNumbersAndSpecialCharacters().ToString();
-            yield return new WaitForSeconds(encryptionSpeed);
+            yield return new WaitForSeconds(GameManager.GetInstance().encryptionSpeedSymbol);
             TMP_character.text = holdingCharacter.ToString();
-            yield return new WaitForSeconds(encryptionSpeed);
+            yield return new WaitForSeconds(GameManager.GetInstance().encryptionSpeedCharacter);
 
             if (!GameManager.GetInstance().isPlaying)
             {

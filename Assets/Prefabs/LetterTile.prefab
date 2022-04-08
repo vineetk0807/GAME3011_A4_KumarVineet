@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: -10
+  movementSpeedWithLowTime: -11
   encryptionSpeed: 0.75
   TMP_character: {fileID: 6436681826549976649}
   holdingCharacter: 90

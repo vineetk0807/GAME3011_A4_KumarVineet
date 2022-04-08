@@ -27,6 +27,13 @@ public class GameManager : MonoBehaviour
     [Header("Difficulty")] 
     public Difficulty difficulty;
 
+    // Encryption/Decryption speed
+    [Header("Encryption Speed")]
+    public float encryptionSpeedCharacter = 1f;
+    public float encryptionSpeedSymbol = 1f;
+    public float lessTimer_characterSpeed = 2f;
+    public float lessTimer_symbolSpeed = 2f;
+
     [Header("Timer")]
     public float timerCounter = 0f;
     public int timer = 0;
@@ -72,6 +79,11 @@ public class GameManager : MonoBehaviour
                 {
                     isOutOfTimer = true;
                     isPlaying = false;
+                }
+
+                if (timer == 30)
+                {
+                    encryptionSpeedCharacter = lessTimer_characterSpeed;
                 }
             }
         }

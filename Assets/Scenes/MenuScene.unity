@@ -259,14 +259,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPassword: 
-  difficulty: 1
-  encryptionSpeedCharacter: 1
-  encryptionSpeedSymbol: 1
-  lessTimer_characterSpeed: 2
-  lessTimer_symbolSpeed: 0.5
+  difficulty: 0
   timerCounter: 0
   timer: 0
-  difficultyTimer: 78000000780000005a000000
+  difficultyTimer: 780000005a0000003c000000
   TMP_timer: {fileID: 544756558}
   isPlaying: 1
   isOutOfTimer: 0
