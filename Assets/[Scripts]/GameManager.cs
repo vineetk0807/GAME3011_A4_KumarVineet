@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     }
 
     public string currentPassword = "";
+    public List<char> currentPasswordHelpList;
+    public string whatsTypedOut = "";
 
     [Header("Difficulty")] 
     public Difficulty difficulty;
@@ -44,6 +47,7 @@ public class GameManager : MonoBehaviour
     public bool isPlaying = true;
     public bool isOutOfTimer = false;
     public bool hasWon = false;
+    public bool panicMode = false;
 
     private void Awake()
     {
@@ -84,6 +88,7 @@ public class GameManager : MonoBehaviour
                 if (timer == 30)
                 {
                     encryptionSpeedCharacter = lessTimer_characterSpeed;
+                    StartPanicMode();
                 }
             }
         }
@@ -92,6 +97,22 @@ public class GameManager : MonoBehaviour
         // --
     }
 
+    /// <summary>
+    /// Panic mode func loads the remaining characters of a password
+    /// </summary>
+    private void StartPanicMode()
+    {
+        char[] tempCharArray = whatsTypedOut.ToCharArray();
+        foreach (var letter in currentPassword)
+        {
+            if (!whatsTypedOut.Contains(letter))
+            {
+                currentPasswordHelpList.Add(letter);
+            }
+        }
+
+        panicMode = true;
+    }
 
 
     /// <summary>
@@ -110,7 +131,7 @@ public class GameManager : MonoBehaviour
     /// Checks the password sent
     /// </summary>
     /// <param name="password"></param>
-    public void CheckPassword(string password, CursorBehaviour hackingTerminal)
+    public void SubmitPassword(string password, CursorBehaviour hackingTerminal)
     {
         if (password.Equals(currentPassword))
         {
@@ -169,6 +190,9 @@ public class GameManager : MonoBehaviour
 
         // Set timer text
         TMP_timer.text = timer.ToString();
+
+        // Set new password list
+        currentPasswordHelpList = new List<char>();
     }
 
 

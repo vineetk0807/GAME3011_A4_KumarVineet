@@ -29,6 +29,11 @@ public class TileBehaviour : MonoBehaviour
         {
             transform.position += new Vector3(0f, movementSpeed * Time.deltaTime, 0f);
         }
+
+        if (GameManager.GetInstance().currentPasswordHelpList.Count > 0 && holdingCharacter == GameManager.GetInstance().currentPasswordHelpList[0])
+        {
+            TMP_character.color = Color.blue;
+        }
     }
 
 

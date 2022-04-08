@@ -44,6 +44,7 @@ public class CursorBehaviour : MonoBehaviour
             {
                 password += Character;
                 TMP_PasswordInput.text = password;
+                GameManager.GetInstance().whatsTypedOut = password;
 
                 // check if you are beyond length
                 if (password.Length > GameManager.GetInstance().currentPassword.Length)
@@ -86,7 +87,8 @@ public class CursorBehaviour : MonoBehaviour
                 }
 
                 // If Player is still progressing
-                if (password.Length % 2 == 0 && password.Length < GameManager.GetInstance().currentPassword.Length)
+                if ((password.Length % 2 == 0 && password.Length < GameManager.GetInstance().currentPassword.Length) || 
+                    GameManager.GetInstance().panicMode)
                 {
                     if (CheckPassword())
                     {
@@ -106,6 +108,13 @@ public class CursorBehaviour : MonoBehaviour
                         }
 
                         Debug.Log("On the right track");
+
+                        // If check is correct
+                        if (GameManager.GetInstance().panicMode)
+                        {
+                            GameManager.GetInstance().currentPasswordHelpList.RemoveAt(0);
+                        }
+
                     }
                 }
 
@@ -150,7 +159,7 @@ public class CursorBehaviour : MonoBehaviour
             tempString += password[i];
         }
 
-        TMP_PasswordInput.text = password = tempString;
+        TMP_PasswordInput.text = GameManager.GetInstance().whatsTypedOut  = password = tempString;
 
         // update progress
         hackProgress--;
@@ -170,7 +179,7 @@ public class CursorBehaviour : MonoBehaviour
     {
         if (GameManager.GetInstance().isPlaying)
         {
-            GameManager.GetInstance().CheckPassword(password, this);
+            GameManager.GetInstance().SubmitPassword(password, this);
         }
     }
 
@@ -186,15 +195,9 @@ public class CursorBehaviour : MonoBehaviour
         char[] passChar = password.ToCharArray();
         char[] passCurrentChar = GameManager.GetInstance().currentPassword.ToCharArray();
 
-
         for (int i = 0; i < passChar.Length; i++)
         {
             check = passCurrentChar[i].Equals(passChar[i]);
-
-            if (!check)
-            {
-                break;
-            }
         }
 
         return check;
