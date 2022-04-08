@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     [Header("Difficulty")] 
     public Difficulty difficulty;
 
+    public TextMeshProUGUI TMP_Difficulty;
+
     // Encryption/Decryption speed
     [Header("Encryption Speed")]
     public float encryptionSpeedCharacter = 1f;
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        difficulty = Data.difficulty;
     }
 
     // Start is called before the first frame update
@@ -173,18 +176,22 @@ public class GameManager : MonoBehaviour
         {
             case Difficulty.EASY:
                 timer = difficultyTimer[(int)Difficulty.EASY];
+                TMP_Difficulty.text = "Difficulty: EASY";
                 break;
 
             case Difficulty.NORMAL:
                 timer = difficultyTimer[(int)Difficulty.NORMAL];
+                TMP_Difficulty.text = "Difficulty: NORMAL";
                 break;
 
             case Difficulty.HARD:
                 timer = difficultyTimer[(int)Difficulty.HARD];
+                TMP_Difficulty.text = "Difficulty: HARD";
                 break;
 
             default:
                 timer = difficultyTimer[(int)Difficulty.EASY];
+                TMP_Difficulty.text = "Difficulty: EASY";
                 break;
         }
 

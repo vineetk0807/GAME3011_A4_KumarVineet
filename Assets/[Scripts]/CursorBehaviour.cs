@@ -179,6 +179,8 @@ public class CursorBehaviour : MonoBehaviour
     {
         if (GameManager.GetInstance().isPlaying)
         {
+            StopCoroutine(narrationCoroutine);
+            isNarrationOn = false;
             GameManager.GetInstance().SubmitPassword(password, this);
         }
     }

@@ -19,7 +19,10 @@ public class TileBehaviour : MonoBehaviour
         holdingCharacter = GenerateRandomAlphabets();
         TMP_character.text = holdingCharacter.ToString();
 
-        StartCoroutine(EncryptDecrypt());
+        if (GameManager.GetInstance().difficulty != Difficulty.EASY)
+        {
+            StartCoroutine(EncryptDecrypt());
+        }
     }
 
     // Update is called once per frame
@@ -87,11 +90,11 @@ public class TileBehaviour : MonoBehaviour
     {
         if (Random.Range(2, 6) % 2 == 0)
         {
-            return (char)Random.Range('A', 'Z');
+            return (char)Random.Range('A', '[');
         }
         else
         {
-            return (char)Random.Range('a', 'z');
+            return (char)Random.Range('a', '{');
         }
     }
 
