@@ -25,6 +25,8 @@ public class HackingSystem : MonoBehaviour
     public TextMeshProUGUI TMP_Password;
     public TextMeshProUGUI TMP_PasswordHint;
 
+    private bool firstAndThird = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,13 +60,44 @@ public class HackingSystem : MonoBehaviour
     /// </summary>
     private void SpawnTiles()
     {
-        foreach (var spawnPoint in spawnPoints)
+        if (GameManager.GetInstance().difficulty == Difficulty.HARD && GameManager.GetInstance().hardModeActive)
         {
-            GameObject tempTile = Instantiate(tileGameObject, spawnPoint.position, Quaternion.identity);
-            tempTile.GetComponent<Transform>().parent = spawnPoint;
-            TileBehaviour tile = tempTile.GetComponent<TileBehaviour>();
-            tile.movementSpeed = movementSpeed;
-            
+            if (firstAndThird)
+            {
+                for (int i = 0; i < spawnPoints.Count; i++)
+                {
+                    if (i == 0 || i == 2)
+                    {
+                        GameObject tempTile = Instantiate(tileGameObject, spawnPoints[i].position, Quaternion.identity);
+                        tempTile.GetComponent<Transform>().parent = spawnPoints[i];
+                        TileBehaviour tile = tempTile.GetComponent<TileBehaviour>();
+                        tile.movementSpeed = movementSpeed;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < spawnPoints.Count; i++)
+                {
+                    if (i == 1 || i == 3)
+                    {
+                        GameObject tempTile = Instantiate(tileGameObject, spawnPoints[i].position, Quaternion.identity);
+                        tempTile.GetComponent<Transform>().parent = spawnPoints[i];
+                        TileBehaviour tile = tempTile.GetComponent<TileBehaviour>();
+                        tile.movementSpeed = movementSpeed;
+                    }
+                }
+            }
+        }
+        else
+        {
+            foreach (var spawnPoint in spawnPoints)
+            {
+                GameObject tempTile = Instantiate(tileGameObject, spawnPoint.position, Quaternion.identity);
+                tempTile.GetComponent<Transform>().parent = spawnPoint;
+                TileBehaviour tile = tempTile.GetComponent<TileBehaviour>();
+                tile.movementSpeed = movementSpeed;
+            }
         }
     }
 

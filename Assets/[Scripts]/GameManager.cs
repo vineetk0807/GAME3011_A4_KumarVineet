@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
     [Header("Difficulty")] 
     public Difficulty difficulty;
 
+    public float hardDifficultyTimeCounter = 0f;
+    public float hardDifficultyTimer = 0f;
+    public bool hardModeActive = false;
+
     public TextMeshProUGUI TMP_Difficulty;
 
     // Encryption/Decryption speed
@@ -50,6 +54,9 @@ public class GameManager : MonoBehaviour
     public bool isOutOfTimer = false;
     public bool hasWon = false;
     public bool panicMode = false;
+
+    [Header("End Scene")] 
+    public GameObject EndScene;
 
     private void Awake()
     {
@@ -86,6 +93,8 @@ public class GameManager : MonoBehaviour
                 {
                     isOutOfTimer = true;
                     isPlaying = false;
+                    Data.gameEndState = 1;
+                    EndScene.SetActive(true);
                 }
 
                 if (timer == 30)
@@ -94,8 +103,18 @@ public class GameManager : MonoBehaviour
                     StartPanicMode();
                 }
             }
-        }
 
+            if (difficulty == Difficulty.HARD)
+            {
+                hardDifficultyTimeCounter += Time.deltaTime;
+
+                if (hardDifficultyTimeCounter > 10f)
+                {
+                    hardDifficultyTimeCounter = 0f;
+                    hardModeActive = !hardModeActive;
+                }
+            }
+        }
 
         // --
     }
@@ -106,11 +125,17 @@ public class GameManager : MonoBehaviour
     private void StartPanicMode()
     {
         char[] tempCharArray = whatsTypedOut.ToCharArray();
-        foreach (var letter in currentPassword)
+
+        List<int> index = new List<int>();
+        for (int i = 0; i < currentPassword.Length; i++)
         {
-            if (!whatsTypedOut.Contains(letter))
+            if (i < whatsTypedOut.Length)
             {
-                currentPasswordHelpList.Add(letter);
+                continue;
+            }
+            else
+            {
+                currentPasswordHelpList.Add(currentPassword[i]);
             }
         }
 
@@ -140,11 +165,13 @@ public class GameManager : MonoBehaviour
         {
             isPlaying = false;
             hasWon = true;
+            Data.gameEndState = 0;
         }
         else
         {
             isPlaying = false;
             hasWon = false;
+            Data.gameEndState = 1;
         }
 
         CompleteHacking(hackingTerminal);
@@ -164,6 +191,18 @@ public class GameManager : MonoBehaviour
         {
             hackingTerminal.NarrateText("Wrong Password! Nice knowing you.. I am off. GLHF with the security..");
         }
+
+        StartCoroutine(EndSceneCoroutine());
+    }
+
+    /// <summary>
+    /// Coroutine that starts end scene
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator EndSceneCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        EndScene.SetActive(true);
     }
 
     /// <summary>
