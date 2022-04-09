@@ -9,27 +9,33 @@ public class EndScene : MonoBehaviour
 {
     public TextMeshProUGUI TMP_GameEndState;
 
+    public List<AudioClip> audioClips;
+
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnEnable()
     {
         switch (Data.gameEndState)
         {
             case 0:
                 TMP_GameEndState.text = "You have successfully unlocked the password!";
+                audioSource.clip = audioClips[0];
+                audioSource.Play();
                 break;
 
             case 1:
                 TMP_GameEndState.text = "You have failed to unlock the password!";
+                audioSource.clip = audioClips[1];
+                audioSource.Play();
                 break;
 
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     /// <summary>
     /// Changes scene to main menu

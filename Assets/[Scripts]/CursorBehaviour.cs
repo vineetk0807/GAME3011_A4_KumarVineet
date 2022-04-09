@@ -28,11 +28,23 @@ public class CursorBehaviour : MonoBehaviour
 
     private IEnumerator narrationCoroutine;
 
+    [Header("Sound")] 
+    public List<AudioClip> SoundList;
+
+    private AudioSource audioSource;
+
+    private enum SoundsList
+    {
+        KeyboardClick,
+        TOTAL_AUDIO
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         narrationCoroutine = AnimateTextCoroutine(operatorString[hackProgress]);
         StartCoroutine(narrationCoroutine);
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,6 +57,10 @@ public class CursorBehaviour : MonoBehaviour
                 password += Character;
                 TMP_PasswordInput.text = password;
                 GameManager.GetInstance().whatsTypedOut = password;
+
+                // Play Click sound
+                audioSource.clip = SoundList[(int)SoundsList.KeyboardClick];
+                audioSource.Play();
 
                 // check if you are beyond length
                 if (password.Length > GameManager.GetInstance().currentPassword.Length)
@@ -151,6 +167,11 @@ public class CursorBehaviour : MonoBehaviour
     /// </summary>
     public void BackspaceFunction()
     {
+
+        // Play Click sound
+        audioSource.clip = SoundList[(int)SoundsList.KeyboardClick];
+        audioSource.Play();
+
         string tempString = "";
 
         // get all characters except last one, and reassign string

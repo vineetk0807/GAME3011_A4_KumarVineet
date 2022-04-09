@@ -12,3 +12,14 @@ Link: https://fontsgeek.com/fonts/fixedsys-excelsior-301-regular
 Name: Consolas
 Author: Dafont 
 Link: https://www.dafontfree.io/download/consolas/
+
+
+### SOUNDS ###
+Name: Mechanical keyboard
+Author: bluszcz
+Link: https://opengameart.org/content/mechanical-keyboard-sound
+
+
+Name: Alarm Sounds
+Author: JSilverSound
+Link: https://freesound.org/people/JSilverSound/sounds/381957/
